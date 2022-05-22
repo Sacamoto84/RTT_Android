@@ -114,6 +114,5 @@ fun info(modifier: Modifier = Modifier) {
             }
 
         }
-        bottomNavigationInfo()
     }
 }

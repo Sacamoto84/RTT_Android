@@ -108,18 +108,3 @@ fun bottomNavigationLazy() {
         }
     }
 }
-
-@Composable
-fun bottomNavigationInfo() {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .height(heghtHabigation)
-            .background(colorBg)
-
-, contentAlignment = Alignment.Center
-    )
-    {
-
-    }
-}

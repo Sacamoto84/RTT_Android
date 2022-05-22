@@ -69,8 +69,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
 
         Box(
             Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
+                .fillMaxSize()
                 .weight(1f)
         )
         {
@@ -79,7 +78,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
             ///////////////////////////////////////////////////////////
             LazyColumn(                                              //
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxSize()
                     , state = lazyListState                          //
             ) {
                 itemsIndexed(messages)
