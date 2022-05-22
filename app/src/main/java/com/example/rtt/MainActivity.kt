@@ -133,20 +133,3 @@ fun Context.findActivity(): Activity? {
     return null
 }
 
-fun sendUDP(messageStr: String) {
-    // Hack Prevent crash (sending should be done using an async task)
-    val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-    StrictMode.setThreadPolicy(policy)
-    try {
-        //Open a port to send the package
-        val socket = DatagramSocket()
-        socket.broadcast = true
-        val sendData = messageStr.toByteArray()
-        val sendPacket =
-            DatagramPacket(sendData, sendData.size, InetAddress.getByName("192.168.0.255"), 8889)
-        socket.send(sendPacket)
-        println("fun sendBroadcast: packet sent to: " + "192.168.0.255" + ":" + 8888)
-    } catch (e: IOException) {
-        //            Log.e(FragmentActivity.TAG, "IOException: " + e.message)
-    }
-}

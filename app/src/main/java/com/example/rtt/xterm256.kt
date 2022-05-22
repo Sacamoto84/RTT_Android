@@ -35,7 +35,6 @@ var currentTextItalic: Int = 0
 var currentTextUnderline: Int = 0
 var currentTextFlash: Int = 0  //Мигание
 
-@Immutable
 data class pairTextAndColor(
     var text: String,
     var colorText: Color,
@@ -132,9 +131,7 @@ fun calculateColorInEscString(str: String) {
         val color = colorIn256(matchResult.groupValues[1].toInt()) //Получили цвет по коду
         currentTextColor = color
         println("--->calculateColorInString->codeColor:${color}")
-
         str1 = str.replace(matchResult.value, "")
-
     }
 
     //Цвет Фона
@@ -184,7 +181,6 @@ fun calculateColorInEscString(str: String) {
 }
 
 class udp_DataArrival : Runnable {
-
     override fun run() {
         println("${Thread.currentThread()} Runnable Thread Started.")
         val buffer = ByteArray(2048 * 16)
@@ -214,7 +210,6 @@ class udp_DataArrival : Runnable {
         }
         socket.close()
     }
-
 }
 
 

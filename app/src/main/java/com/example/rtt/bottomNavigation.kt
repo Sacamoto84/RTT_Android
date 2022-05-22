@@ -17,6 +17,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import libs.sendUDP
 
 private val heghtHabigation = 50.dp
 private val colorBg = Color(0xFF1B1B1B)
