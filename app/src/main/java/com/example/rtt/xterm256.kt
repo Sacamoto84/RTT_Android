@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.navigation.NavController
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import java.net.DatagramPacket
@@ -34,6 +35,7 @@ var currentTextItalic: Int = 0
 var currentTextUnderline: Int = 0
 var currentTextFlash: Int = 0  //Мигание
 
+@Immutable
 data class pairTextAndColor(
     var text: String,
     var colorText: Color,
@@ -43,7 +45,6 @@ data class pairTextAndColor(
     var underline: Int = 0,
     var flash: Int = 0
 )
-
 
 val colorline = mutableStateListOf<List<pairTextAndColor>>()
 
@@ -216,160 +217,5 @@ class udp_DataArrival : Runnable {
 
 }
 
-@Composable
-fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
-
-    var update by remember { mutableStateOf(true) }  //для мигания
-
-    val coroutineScope = rememberCoroutineScope()
-
-    println("---lazy---")
-    val lazyListState: LazyListState = rememberLazyListState()
-    //println("Индекс первого видимого элемента = " + lazyListState.firstVisibleItemIndex.toString())
-    //println("Смещение прокрутки первого видимого элемента = " + lazyListState.firstVisibleItemScrollOffset.toString())
-    //println("Количество строк выведенных на экран lastIndex = " + lazyListState.layoutInfo.visibleItemsInfo.lastIndex.toString())
-
-    var lastVisibleItemIndex by remember {
-        mutableStateOf(0)
-    }
-
-    lastVisibleItemIndex =
-        lazyListState.layoutInfo.visibleItemsInfo.lastIndex + lazyListState.firstVisibleItemIndex
-    //println("Последний видимый индекс = $lastVisibleItemIndex")
-    //println("Количество записей = ${messages.size}")
-
-    LaunchedEffect(key1 = messages) {
-        while (true) {
-            //print("LaunchedEffect !!!700L\n")
-            delay(700L)
-            update = !update
-            telnetWarning.value = (telnetSlegenie.value == false) && (messages.size > lastCount )
-        }
-    }
-
-    LaunchedEffect(key1 = lastVisibleItemIndex, key2 = messages) {
-        while (true) {
-            print("LaunchedEffect !!!Сколлинг\n")
-            delay(100L)
-            val s = messages.size
-            if ((s > 20) && (telnetSlegenie.value == true)) {
-                //println("!!!Сколлинг animateScrollToItem")
-                lazyListState.scrollToItem(index = messages.size - 1) //Анимация (плавная прокрутка) к данному элементу.
-            }
-        }
-    }
-
-    Column(Modifier.fillMaxSize()) {
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(1f), state = lazyListState
-        ) {
-            itemsIndexed(messages)
-            { index, l ->
-                Row()
-                {
-                    var s = l.size
-                    if (s > 0) {
-                        val str: String = when (index) {
-                            in 0..9 -> String.format("   %d>", index)
-                            in 10..99 -> String.format("  %d>", index)
-                            in 100..999 -> String.format(" %d>", index)
-                            else -> String.format("%d>", index)
-                        }
-                        Text(text = "$str", color = Color.Gray, fontFamily = FontFamily.Monospace)
-                    }
-
-                    for (i in 0 until s) {
-                        if (l[i].flash == 1) {
-                            if (update) {
-                                Text(
-                                    text = l[i].text,
-                                    color = l[i].colorText,
-                                    modifier = Modifier.background(l[i].colorBg),
-                                    textDecoration = if (l[i].underline == 1) TextDecoration.Underline else null,
-                                    fontWeight = if (l[i].bold == 1) FontWeight.Bold else null,
-                                    fontStyle = if (l[i].italic == 1) FontStyle.Italic else null,
-                                    fontFamily = FontFamily.Monospace
-                                )
-                            }
-                        } else {
-                            Text(
-                                text = l[i].text,
-                                color = l[i].colorText,
-                                modifier = Modifier.background(l[i].colorBg),
-                                textDecoration = if (l[i].underline == 1) TextDecoration.Underline else null,
-                                fontWeight = if (l[i].bold == 1) FontWeight.Bold else null,
-                                fontStyle = if (l[i].italic == 1) FontStyle.Italic else null,
-                                fontFamily = FontFamily.Monospace
-                            )
-                        }
-                    }
-                }
-            }
-        }
-//            Button(
-//                onClick = {
-//                    val timings = System.currentTimeMillis()
-//                         val thread = Thread(){
-//                             coroutineScope1.launch (){
-//                                 println("Тест скорости-----------------------------")
-//                                 val time = measureTimeMillis()
-//                                 {
-//                                     concurrentSum()
-//                                 }
-//                                 println("Готово за $time ms count = $count ")
-//                                 println("----------------------------- Корутина все -----------------------------")
-//                             }
-//                         }
-//                         thread.start()
-        //runBlocking<Unit> {
-//                }
-//
-//            ) {
-//                Text(text = "Заеба")
-//            }
 
 
-        // }
-    }
-}
-
-//val max = 4000
-//var count = 0
-//
-//
-//
-//
-//val potok = 16
-//
-//suspend fun one(): Int {
-//    println("Запуск One")
-//    for (p3 in 2 .. max/potok step 2) {
-//        for (p2 in 2 until max step 2) {
-//            for (p1 in 2 until max step 2) {
-//                if (((p3 > p2) && (p2 > p1) && ((p1 + p2 + p3) == max))) {
-//
-//                    count++;
-//                }
-//            }
-//        }
-//    }
-//    println("Конец One")
-//    return 1
-//}
-//
-//
-//suspend fun concurrentSum(): Int = coroutineScope {
-//
-//    val one1 = async (Dispatchers.IO){ one() }
-//    val two1 = async (Dispatchers.IO){ one() }
-//    one1.start()
-//    two1.start()
-//    launch {
-//        println("Ждем One + Two")
-//        one1.await() + two1.await()
-//    }
-//     1
-//}
