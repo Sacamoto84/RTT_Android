@@ -23,7 +23,7 @@ private val heghtHabigation = 50.dp
 private val colorBg = Color(0xFF1B1B1B)
 
 @Composable
-fun bottomNavigationLazy() {
+fun BottomNavigationLazy() {
     Box(
         Modifier
             .fillMaxWidth()
@@ -65,7 +65,7 @@ fun bottomNavigationLazy() {
                 .width(80.dp)
                 .padding(top = 8.dp, bottom = 8.dp),
                 onClick = {
-                    sendUDP("Reset")
+                    sendUDP("Reset", "192.168.0.255", 8889)
                     colorline.add(
                         listOf(
                             pairTextAndColor(
@@ -90,7 +90,7 @@ fun bottomNavigationLazy() {
                 //.weight(1f)
                 ,
                 onClick = {
-                    sendUDP("Activate")
+                    sendUDP("Activate", "192.168.0.255", 8889)
                     colorline.add(
                         listOf(
                             pairTextAndColor(
