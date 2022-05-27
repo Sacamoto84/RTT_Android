@@ -30,19 +30,19 @@ val defaultBgColor: Color = Color.Black
 
 var currentTextColor: Color = Color.White
 var currentBgColor: Color = Color.Black
-var currentTextBold: Int = 0
-var currentTextItalic: Int = 0
-var currentTextUnderline: Int = 0
-var currentTextFlash: Int = 0  //Мигание
+var currentTextBold = false
+var currentTextItalic = false
+var currentTextUnderline = false
+var currentTextFlash = false   //Мигание
 
 data class pairTextAndColor(
     var text: String,
     var colorText: Color,
     var colorBg: Color,
-    var bold: Int = 0,
-    var italic: Int = 0,
-    var underline: Int = 0,
-    var flash: Int = 0
+    var bold: Boolean = false,
+    var italic: Boolean = false,
+    var underline: Boolean = false,
+    var flash: Boolean = false
 )
 
 val colorline = mutableStateListOf<List<pairTextAndColor>>()
@@ -144,24 +144,24 @@ fun calculateColorInEscString(str: String) {
         str1 = str1.replace(matchResult.value, "")
     }
 
-    currentTextBold = 0
-    currentTextItalic = 0
-    currentTextUnderline = 0
-    currentTextFlash = 0
+    currentTextBold = false
+    currentTextItalic = false
+    currentTextUnderline = false
+    currentTextFlash = false
 
     if (str1.indexOf("01") != -1) {
         //Bold
-        currentTextBold = 1
+        currentTextBold = true
     }
 
     if (str1.indexOf("03") != -1) {
         //Italic
-        currentTextItalic = 1
+        currentTextItalic = true
     }
 
     if (str1.indexOf("04") != -1) {
         //Uderline
-        currentTextUnderline = 1
+        currentTextUnderline = true
     }
 
     if (str1.indexOf("07") != -1) {
@@ -173,7 +173,7 @@ fun calculateColorInEscString(str: String) {
 
     if (str1.indexOf("08") != -1) {
         //Flash
-        currentTextFlash = 1
+        currentTextFlash = true
     }
 
     println(str1)

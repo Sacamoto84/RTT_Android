@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
-
 @Composable
 fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
 
@@ -51,7 +50,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
         while (true) {
             delay(700L)
             update = !update
-            telnetWarning.value = (telnetSlegenie.value == false) && (messages.size > lastCount )
+            telnetWarning.value = (telnetSlegenie.value == false) && (messages.size > lastCount)
         }
     }
 
@@ -78,8 +77,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
             ///////////////////////////////////////////////////////////
             LazyColumn(                                              //
                 modifier = Modifier
-                    .fillMaxSize()
-                    , state = lazyListState                          //
+                    .fillMaxSize(), state = lazyListState                          //
             ) {
                 itemsIndexed(messages)
                 { index, l ->
@@ -93,33 +91,31 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                                 in 100..999 -> String.format(" %d>", index)
                                 else -> String.format("%d>", index)
                             }
-                            Text(text = "$str", color = Color.Gray, fontFamily = FontFamily.Monospace)
+                            Text(
+                                text = "$str",
+                                color = Color.Gray,
+                                fontFamily = FontFamily.Monospace
+                            )
                         }
 
                         for (i in 0 until s) {
-                            if (l[i].flash == 1) {
-                                if (update) {
-                                    Text(
-                                        text = l[i].text,
-                                        color = l[i].colorText,
-                                        modifier = Modifier.background(l[i].colorBg),
-                                        textDecoration = if (l[i].underline == 1) TextDecoration.Underline else null,
-                                        fontWeight = if (l[i].bold == 1) FontWeight.Bold else null,
-                                        fontStyle = if (l[i].italic == 1) FontStyle.Italic else null,
-                                        fontFamily = FontFamily.Monospace
-                                    )
-                                }
-                            } else {
-                                Text(
-                                    text = l[i].text,
-                                    color = l[i].colorText,
-                                    modifier = Modifier.background(l[i].colorBg),
-                                    textDecoration = if (l[i].underline == 1) TextDecoration.Underline else null,
-                                    fontWeight = if (l[i].bold == 1) FontWeight.Bold else null,
-                                    fontStyle = if (l[i].italic == 1) FontStyle.Italic else null,
-                                    fontFamily = FontFamily.Monospace
-                                )
-                            }
+                            Text(
+                                text = l[i].text,
+                                color = if (!l[i].flash)
+                                    l[i].colorText
+                                else
+                                    if (update) l[i].colorText else Color(0xFF090909),
+                                modifier = Modifier.background(
+                                    if (!l[i].flash)
+                                        l[i].colorBg
+                                    else
+                                        if (update) l[i].colorBg else Color(0xFF090909)
+                                ),
+                                textDecoration = if (l[i].underline) TextDecoration.Underline else null,
+                                fontWeight = if (l[i].bold) FontWeight.Bold else null,
+                                fontStyle = if (l[i].italic) FontStyle.Italic else null,
+                                fontFamily = FontFamily.Monospace
+                            )
                         }
                     }
                 }

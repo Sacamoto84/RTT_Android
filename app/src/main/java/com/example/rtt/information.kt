@@ -37,6 +37,7 @@ fun info(modifier: Modifier = Modifier) {
 
             Text(text = "01 Bold 03 Italic 04 Underline 07 Revers 08 Flash", color = Color.White)
             Text(text = """\x1B[0m \033[ \u001b 38;05;xxx Text 48;05;xxx Bg""", color = Color.White)
+            Text(text = """Конец строки \r\n""", color = Color.White)
 
             //Рисуем таблицу
             Column(
