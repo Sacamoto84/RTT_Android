@@ -1,4 +1,4 @@
-✨RTT Android✨
+✨RTT Client Android✨
 ================
 RTT Client Андроид версия
 Вывод терминала Segger RTT в формате xterm256, поддержка русского языка и мигания  
