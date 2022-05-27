@@ -44,8 +44,6 @@ class MainActivity : ComponentActivity() {
 
         LineAdd("RTT Client v7")
 
-        setupCoroutineDebugMode()
-
         setContent {
             ipBroadcast = ipToBroadCast(readIP(applicationContext))
             KeepScreenOn()
