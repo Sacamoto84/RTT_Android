@@ -18,7 +18,8 @@ import com.google.accompanist.pager.rememberPagerState
 import libs.KeepScreenOn
 import libs.ipToBroadCast
 import libs.readIP
-import libs.setupCoroutineDebugMode
+import kotlin.system.*
+
 
 var telnetSlegenie = MutableLiveData<Boolean>(true)
 var telnetWarning = MutableLiveData<Boolean>(false) //Для отображения значка
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
         val threadWithRunnable = Thread(udp_DataArrival())
         threadWithRunnable.start()
 
-        LineAdd("RTT Client v7")
+        LineAdd("RTT Client v8")
 
         setContent {
             ipBroadcast = ipToBroadCast(readIP(applicationContext))
@@ -51,7 +52,6 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = Color(0xFF090909) //MaterialTheme.colors.background
                 ) {
-
                     val pagerState = rememberPagerState()
                     LaunchedEffect(pagerState) {
                         snapshotFlow { pagerState.currentPage }.collect { page ->

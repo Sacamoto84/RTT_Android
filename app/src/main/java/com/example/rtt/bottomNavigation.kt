@@ -69,7 +69,7 @@ fun bottomNavigationLazy() {
                         colorline.add(
                             listOf(
                                 pairTextAndColor(
-                                    text = "Команда перезагрузки контролера",
+                                    text = "Команда перезагрузки контроллера",
                                     Color.Green,
                                     Color.Black
                                 )
