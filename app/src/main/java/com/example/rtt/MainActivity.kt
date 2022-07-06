@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         val threadWithRunnable = Thread(udp_DataArrival())
         threadWithRunnable.start()
 
-        LineAdd("RTT Client v8")
+        LineAdd("RTT Client v9")
 
         setContent {
             ipBroadcast = ipToBroadCast(readIP(applicationContext))

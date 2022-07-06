@@ -94,7 +94,7 @@ fun stringcalculate(text: String): List<pairTextAndColor> {
 fun calculateColorInEscString(str: String) {
 
     //"38;05;232;48;05;226"
-    println("--->calculateColorInString->str:$str")
+    //println("--->calculateColorInString->str:$str")
 
     val rederxTextColor = """38;05;([^;]+)""".toRegex()
     val rederxBgColor = """48;05;([^;]+)""".toRegex()
@@ -112,7 +112,7 @@ fun calculateColorInEscString(str: String) {
     if (matchResult != null) {
         val color = colorIn256(matchResult.groupValues[1].toInt()) //Получили цвет по коду
         currentTextColor = color
-        println("--->calculateColorInString->codeColor:${color}")
+        //println("--->calculateColorInString->codeColor:${color}")
         str1 = str.replace(matchResult.value, "")
     }
 
@@ -121,7 +121,7 @@ fun calculateColorInEscString(str: String) {
     if (matchResult != null) {
         val color = colorIn256(matchResult.groupValues[1].toInt()) //Получили цвет по коду
         currentBgColor = color
-        println("--->calculateColorInString->currentBgColor:${color}")
+        //println("--->calculateColorInString->currentBgColor:${color}")
 
         str1 = str1.replace(matchResult.value, "")
     }
@@ -158,7 +158,7 @@ fun calculateColorInEscString(str: String) {
         currentTextFlash = true
     }
 
-    println(str1)
+    //println(str1)
 
 }
 
@@ -174,9 +174,9 @@ class udp_DataArrival : Runnable {
             socket.receive(packet)
             var buffer1: ByteArray = packet.data.copyOfRange(0, packet.length)
             val string = String(buffer1)
-            println("UDP:" + string)
+            println("!!!!!!!!!!UDP!!!!!!!!!:$string")
 
-            val list = string.split("\r\n")
+            val list = string.split("\n")
 
             val mask = "\\[([^m]+)m".toRegex()
             var matchResult = mask.findAll(string).toList()

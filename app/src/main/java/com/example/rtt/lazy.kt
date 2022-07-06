@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
@@ -29,7 +30,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
 
     var update by remember { mutableStateOf(true) }  //для мигания
 
-    println("---lazy---")
+    //println("---lazy---")
 
     val lazyListState: LazyListState = rememberLazyListState()
 
@@ -94,7 +95,8 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                             Text(
                                 text = "$str",
                                 color = Color.Gray,
-                                fontFamily = FontFamily.Monospace
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 12.sp
                             )
                         }
 
@@ -114,7 +116,8 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                                 textDecoration = if (l[i].underline) TextDecoration.Underline else null,
                                 fontWeight = if (l[i].bold) FontWeight.Bold else null,
                                 fontStyle = if (l[i].italic) FontStyle.Italic else null,
-                                fontFamily = FontFamily.Monospace
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 12.sp
                             )
                         }
                     }

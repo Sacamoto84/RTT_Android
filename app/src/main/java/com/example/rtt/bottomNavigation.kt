@@ -52,8 +52,40 @@ fun bottomNavigationLazy() {
                     lastCount = colorline.size
                 }
             ) {
-                Text(text = "Слежение ${colorline.size - 1}")
+                Text(text = "${colorline.size - 1}")
             }
+
+            //Кнопка сброса списка
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(modifier = Modifier
+                .fillMaxHeight()
+                .width(60.dp)
+                .padding(top = 8.dp, bottom = 8.dp),
+                onClick = {
+                    colorline.clear()
+                    colorline.add(
+                        listOf(
+                            pairTextAndColor(
+                                text = "Очистка списка",
+                                Color.Green,
+                                Color.Black
+                            )
+                        )
+                    )
+                }
+            ) {
+                Text(
+                    text = "C"
+                )
+            }
+
+
+
+
+
+
+
+
 
             //Кнопка перезагрузки контроллера
             Spacer(modifier = Modifier.width(8.dp))
