@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-                    HorizontalPager(count = 3, state = pagerState) { page ->
+                    HorizontalPager(count = 2, state = pagerState) { page ->
                         when (page) {
                             0 -> lazy(colorline)
                             1 -> info()
