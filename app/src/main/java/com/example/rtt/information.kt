@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,11 +18,10 @@ import androidx.navigation.NavController
 
 val textSize = 12.sp
 val fontWeight = FontWeight.Normal
-
 val boxSize = 32.dp
 
 @Composable
-fun info(modifier: Modifier = Modifier) {
+fun info() {
 
     val scrollState = rememberScrollState()
 
@@ -79,7 +79,10 @@ fun info(modifier: Modifier = Modifier) {
                         }
                     }
                 }
-                for (i in 2..30) {
+
+                var index = 16
+
+                for (i in 0..14) {
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -93,27 +96,114 @@ fun info(modifier: Modifier = Modifier) {
                                     .height(boxSize)
                                     .padding(start = 0.5.dp, top = 0.5.dp)
                                     .weight(1f)
-                                    .background(colorIn256(x + i * 8)),
+                                    .background(colorIn256(index)),
                                 contentAlignment = Alignment.Center
                             )
                             {
-                                val textcolor = when (x + i * 8) {
+
+
+                                val textcolor = when (index) {
                                     in 0..4, in 16..27, in 232..243 -> Color(0xFFBBBBBB)
                                     else -> Color.Black
                                 }
 
                                 Text(
-                                    text = "${x + i * 8}",
+                                    text = "${index}",
                                     color = textcolor,
                                     fontSize = textSize,
                                     fontWeight = fontWeight
                                 )
+
+                                index++
                             }
                         }
                     }
                 }
             }
 
+            val buttonFontSize = 12.sp
+
+            Row(
+                modifier = Modifier.padding(top = 4.dp)
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+
+                Button(onClick = {
+                    console_text = 12.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "12").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f)
+                )
+                {
+                    Text("12", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 14.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "14").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp)
+                )
+                {
+                    Text("14", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 16.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "16").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("16", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 18.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "18").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("18", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 20.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "20").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("20", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 22.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "22").apply()
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("22", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 24.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "24").apply()
+                },modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("24", fontSize = buttonFontSize)
+                }
+
+                Button(onClick = {
+                    console_text = 26.sp
+                    LineAdd("Изменение шрифта")
+                    shared.edit().putString("size" , "26").apply()
+
+                }, modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 1.dp))
+                {
+                    Text("26", fontSize = buttonFontSize)
+                }
+            }
         }
     }
 }

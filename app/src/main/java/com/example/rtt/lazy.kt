@@ -96,7 +96,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                                 text = "$str",
                                 color = Color.Gray,
                                 fontFamily = FontFamily.Monospace,
-                                fontSize = 12.sp
+                                fontSize = console_text
                             )
                         }
 
@@ -117,7 +117,7 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                                 fontWeight = if (l[i].bold) FontWeight.Bold else null,
                                 fontStyle = if (l[i].italic) FontStyle.Italic else null,
                                 fontFamily = FontFamily.Monospace,
-                                fontSize = 12.sp
+                                fontSize = console_text
                             )
                         }
                     }

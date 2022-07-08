@@ -1,6 +1,8 @@
 package com.example.rtt
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.MutableLiveData
 import com.example.rtt.ui.theme.RttTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -18,7 +21,6 @@ import com.google.accompanist.pager.rememberPagerState
 import libs.KeepScreenOn
 import libs.ipToBroadCast
 import libs.readIP
-import kotlin.system.*
 
 
 var telnetSlegenie = MutableLiveData<Boolean>(true)
@@ -29,12 +31,19 @@ var slegenie: Boolean = true
 var ipBroadcast = "0.0.0.0"
 var contex: Context? = null
 
+var console_text = 12.sp
+
+lateinit var shared : SharedPreferences
+
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         contex = applicationContext
+
+        shared = getSharedPreferences("size" , Context.MODE_PRIVATE)
+        console_text = shared.getString("size" , "12" )?.toInt()?.sp ?: 12.sp
 
         //Создаем список цветов из Json цветов
         colorJsonToList()
@@ -43,7 +52,7 @@ class MainActivity : ComponentActivity() {
         val threadWithRunnable = Thread(udp_DataArrival())
         threadWithRunnable.start()
 
-        LineAdd("RTT Client v9")
+        LineAdd("RTT Client v10")
 
         setContent {
             ipBroadcast = ipToBroadCast(readIP(applicationContext))
