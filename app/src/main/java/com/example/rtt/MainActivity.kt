@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
@@ -49,14 +50,18 @@ class MainActivity : ComponentActivity() {
         colorJsonToList()
 
         //Запуск получения пакетов
-        val threadWithRunnable = Thread(udp_DataArrival())
-        threadWithRunnable.start()
+        //val threadWithRunnable = Thread(udp_DataArrival())
+        //threadWithRunnable.start()
 
-        LineAdd("RTT Client v11")
+        val vm: VM by viewModels();
+        vm.launchUDPRecive()
+
+        LineAdd("RTT Client v12")
 
         setContent {
             ipBroadcast = ipToBroadCast(readIP(applicationContext))
             KeepScreenOn()
+            vm.launchUIChanelRecive()
             RttTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = Color(0xFF090909) //MaterialTheme.colors.background
