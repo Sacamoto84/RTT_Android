@@ -165,12 +165,13 @@ fun calculateColorInEscString(str: String) {
 class udp_DataArrival : Runnable {
     override fun run() {
         println("${Thread.currentThread()} Runnable Thread Started.")
-        val buffer = ByteArray(2048 * 16)
+        val buffer = ByteArray(2048 * 1024)
         var socket: DatagramSocket? = null
         socket = DatagramSocket(8888)
         socket.broadcast = true
         val packet = DatagramPacket(buffer, buffer.size)
         while (true) {
+            socket.soTimeout = 0
             socket.receive(packet)
             var buffer1: ByteArray = packet.data.copyOfRange(0, packet.length)
             val string = String(buffer1)
@@ -178,8 +179,8 @@ class udp_DataArrival : Runnable {
 
             val list = string.split("\n")
 
-            val mask = "\\[([^m]+)m".toRegex()
-            var matchResult = mask.findAll(string).toList()
+            //val mask = "\\[([^m]+)m".toRegex()
+            //var matchResult = mask.findAll(string).toList()
 
             for (str in list) {
                 if (str == "") {

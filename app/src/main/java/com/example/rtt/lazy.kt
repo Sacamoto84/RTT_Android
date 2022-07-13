@@ -16,13 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
@@ -95,8 +94,10 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                             Text(
                                 text = "$str",
                                 color = Color.Gray,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = console_text
+                                fontSize = console_text,
+                                fontFamily = FontFamily(
+                                    Font(R.font.jetbrains, FontWeight.Normal)
+                                )
                             )
                         }
 
@@ -116,8 +117,10 @@ fun lazy(messages: SnapshotStateList<List<pairTextAndColor>>) {
                                 textDecoration = if (l[i].underline) TextDecoration.Underline else null,
                                 fontWeight = if (l[i].bold) FontWeight.Bold else null,
                                 fontStyle = if (l[i].italic) FontStyle.Italic else null,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = console_text
+                                fontSize = console_text,
+                                fontFamily = FontFamily(
+                                    Font(R.font.jetbrains, FontWeight.Normal)
+                                )
                             )
                         }
                     }
