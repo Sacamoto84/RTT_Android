@@ -171,7 +171,7 @@ class udp_DataArrival : Runnable {
         socket.broadcast = true
         val packet = DatagramPacket(buffer, buffer.size)
         while (true) {
-            socket.soTimeout = 0
+            //socket.soTimeout = 0
             socket.receive(packet)
             var buffer1: ByteArray = packet.data.copyOfRange(0, packet.length)
             val string = String(buffer1)
